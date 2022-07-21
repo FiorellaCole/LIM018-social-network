@@ -21,6 +21,9 @@
 .contenedor2{
     margin-top: 25%;
     margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #logoFoodies {
     width: 90%;
