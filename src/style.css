@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.main {
+    overflow: hidden;
+}
+.contenedor1 {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-image: url(images/pizarra.png);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.contenedor2{
+    margin-top: 25%;
+    margin-bottom: 10%;
+}
+#logoFoodies {
+    width: 90%;
+    
+}
+
+.contenedor3{
+    width: 100%;
+
+}
+.contenedor3 form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+.ingresarDatos{
+    margin: 12px 0px 12px 0px;
+    width: 250px;
+    height: 30px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.datos {
+    margin-left: 3px;
+    width: 80%;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+i{
+    margin: 1px 5px 0px 0px;
+    color: #847c7c
+}
+
+.ingresar {
+    margin: 12px 0px 12px 0px;
+    width: 140px;
+    height: 28px;
+    background: #D40A19;
+    border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-weight: bolder;
+}
+
+.iconosInicio {
+    display: flex;
+
+}
+
+.iconosInicio img {
+    margin: 10px 20px 20px 20px;
+    width: 30px;
+}
+
+.text{
+    margin: 10px 0px 6px 10px;
+    color: #FFFFFF;
+}
+
+.link{
+    color: #FFFFFF;
+    font-weight: bolder;
+    text-decoration: none;
+}

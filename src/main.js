@@ -1,5 +1,8 @@
-// Este es el punto de entrada de tu aplicacion
+import { changeView } from './router/ruta.js';
 
-import { myFunction } from './lib/index.js';
+const init = () => {
+  changeView(window.location.hash.toLowerCase());
+  window.addEventListener('hashchange', () => changeView(window.location.hash));
+};
 
-myFunction();
+window.addEventListener('load', init);
