@@ -4,6 +4,6 @@ import { firstView } from './firstview.js';
 
 export const components = {
   firstview: firstView,
-  login: logInForm,
-  registro: registroForm,
+  login: logInForm(),
+  registro: registroForm(),
 };
