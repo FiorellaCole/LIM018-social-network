@@ -1,7 +1,7 @@
 import { changeView } from './router/ruta.js';
 
 const init = () => {
-  changeView(window.location.hash.toLowerCase());
+  changeView(window.location.hash);
   window.addEventListener('hashchange', () => changeView(window.location.hash));
 };
 
