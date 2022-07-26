@@ -40,7 +40,7 @@ export function signUp() {
 
       .then((userCredential) => {
         console.log(userCredential);
-         // Signed in
+        // Signed in
         // const user = userCredential.user;
         // ...
       })
