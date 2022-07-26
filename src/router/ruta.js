@@ -5,10 +5,12 @@ export const changeView = (route) => {
   container.innerHTML = '';
   switch (route) {
     case '': case '#/inicio':
-      container.appendChild(components.firstview(components.login));
+      container.appendChild(components.firstview(components.loginForm));
+      components.Login();
       break;
     case '#/registro':
       container.appendChild(components.firstview(components.registro));
+      components.registrarse();
       break;
     default:
       container.innerHTML = 'Página No Encontrada';

@@ -1,9 +1,12 @@
-import { logInForm } from './login.js';
-import { registroForm } from './registro.js';
+import { logInForm, login } from './login.js';
+import { registroForm, signUp } from './registro.js';
 import { firstView } from './firstview.js';
 
 export const components = {
   firstview: firstView,
-  login: logInForm(),
+  loginForm: logInForm(),
+  Login: login,
   registro: registroForm(),
+  registrarse: signUp,
+
 };

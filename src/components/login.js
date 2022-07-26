@@ -27,3 +27,13 @@ export function logInForm() {
             </div>`;
   return logInDiv;
 }
+
+export function login() {
+  const ingresar = document.getElementById('loginForm');
+  ingresar.addEventListener('submit', (e) => {
+    e.preventDefault();// ----> Para que no se refresque la página.
+    const correo = document.getElementById('correo').value;
+    const contraseña = document.getElementById('contraseña').value;
+    console.log(correo, contraseña);
+  });
+}
