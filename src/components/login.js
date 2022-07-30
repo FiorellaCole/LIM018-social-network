@@ -1,3 +1,6 @@
+import { auth, signInWithEmailAndPassword } from '../firebase.js';
+import { mensajesModales } from './modales.js';
+
 export function logInForm() {
   const logInDiv = `<div id="login" class="contenedor3">
             
@@ -34,6 +37,21 @@ export function login() {
     e.preventDefault();// ----> Para que no se refresque la página.
     const correo = document.getElementById('correo').value;
     const contraseña = document.getElementById('contraseña').value;
-    console.log(correo, contraseña);
+    const ubicacionModal = document.getElementById('mensajeModal');
+
+    signInWithEmailAndPassword(auth, correo, contraseña)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        if (user.emailVerified === true) {
+          window.location.hash = '#/muro';
+        } else {
+          ubicacionModal.innerHTML = mensajesModales.errorConfirmar();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+      });
   });
 }

@@ -9,8 +9,11 @@ export const changeView = (route) => {
       components.Login();
       break;
     case '#/registro':
-      container.appendChild(components.firstview(components.registro));
-      components.registrarse();
+      container.appendChild(components.firstview(components.registroForm));
+      components.signup();
+      break;
+    case '#/muro':
+      container.appendChild(components.muro());
       break;
     default:
       container.innerHTML = 'Página No Encontrada';

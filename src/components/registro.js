@@ -1,4 +1,5 @@
-import { auth, createUserWithEmailAndPassword } from '../firebase.js';
+import { auth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase.js';
+import { mensajesModales } from './modales.js';
 
 export function registroForm() {
   const registroDiv = `<div id='registro' class='contenedor3'>
@@ -22,7 +23,7 @@ export function registroForm() {
         
       <button type="submit" class="ingresar">Registrate</button>
       
-      <p class="texto">¿Ya tienes una cuenta? <a class="link" id="inicia" href="#/inicio"> Inicia sesión</a></p> 
+      <p class="text">¿Ya tienes una cuenta? <a class="link" id="inicia" href="#/inicio"> Inicia sesión</a></p> 
       </form>
       </div>`;
   return registroDiv;
@@ -34,21 +35,20 @@ export function signUp() {
     const usuario = document.getElementById('usuario').value;
     const correo = document.getElementById('correoRegistro').value;
     const contraseña = document.getElementById('contraseñaRegistro').value;
-    console.log(usuario, correo, contraseña);
+    const ubicacionModal = document.getElementById('mensajeModal');
 
     createUserWithEmailAndPassword(auth, correo, contraseña)
-
       .then((userCredential) => {
-        console.log(userCredential);
-        // Signed in
-        // const user = userCredential.user;
-        // ...
+        const user = userCredential.user;
+        sendEmailVerification(user).then(() => {
+          ubicacionModal.innerHTML = mensajesModales.registroExitoso();
+          console.log('Se envio una verificacion al correo!');
+        });
       })
       .catch((error) => {
         console.log(error);
         // const errorCode = error.code;
         // const errorMessage = error.message;
-        // ..
       });
   });
 }
