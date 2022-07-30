@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js';
 // eslint-disable-next-line import/no-unresolved
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCLD95CfdnaE3Tx163UXgtsRLGK7aIPq_M',
@@ -17,4 +17,4 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-export { auth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword };
+export { auth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut };
