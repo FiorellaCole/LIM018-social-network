@@ -5,7 +5,7 @@ export function headerMuro() {
   <img src="images/logo foodies.png" alt="Foodies">
   <div class="derechaHeader">
     <p id="nombreUsuario"></p>
-    <a href=""><img class="iconoUsuario" src=""></a>
+    <a href="#/perfil"><img class="iconoUsuario" src=""></a>
     <i id="cerrarSesion" class="ph-sign-out"></i>
   </div>
 </header>`;
@@ -25,7 +25,7 @@ export function cerrarSesion() {
         console.log(error);
       });
   });
-};
+}
 
 export function categorias() {
   const navegadorCategorias = ` <nav class="categorias">
@@ -36,8 +36,26 @@ export function categorias() {
     <li id="streetfood"><img src="images/streetfood.png">Streetfood</li>
   </ul>
   </nav>`;
-  return navegadorCategorias;
+  const divCategoriasMuro = document.createElement('div');
+  divCategoriasMuro.innerHTML = navegadorCategorias;
+  return divCategoriasMuro;
 }
-// export function compartir() {
-//   const seccionCompartir =
-// }
+export function divCompartir() {
+  const seccionCompartir = `<section id="compartir">
+  <textarea id="cuadroTexto" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5"></textarea>
+  <div class="botonesCompartir">
+  <select class="btn Categorias">
+    <option value="" selected disabled>Categorias</option>
+    <option value="Restaurantes">Restaurantes</option>
+    <option value="Recetas">Recetas</option>
+    <option value="Streetfood">Streetfood</option>
+  </select>
+  <input type="file" id="añadirImagen">
+  <label for="añadirImagen"><i class="ph-image-bold"></i></label>
+  <button class="btn">Compartir</button>
+  </div>
+</section>`;
+  const divSeccionCompartir = document.createElement('div');
+  divSeccionCompartir.innerHTML = seccionCompartir;
+  return divSeccionCompartir;
+}
