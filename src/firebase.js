@@ -1,7 +1,15 @@
 // eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js';
 // eslint-disable-next-line import/no-unresolved
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  signOut,
+// eslint-disable-next-line import/no-unresolved
+} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
+// import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js"
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCLD95CfdnaE3Tx163UXgtsRLGK7aIPq_M',
@@ -14,7 +22,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
+// const db = getFirestore(app);
 
-export { auth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut };
+export {
+  auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  signOut,
+};
