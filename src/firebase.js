@@ -7,6 +7,8 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
 // import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js"
@@ -23,12 +25,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 // const db = getFirestore(app);
-
 export {
   auth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
+  provider,
+  signInWithPopup,
 };
