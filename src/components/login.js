@@ -1,4 +1,9 @@
-import { auth, signInWithEmailAndPassword } from '../firebase.js';
+import {
+  auth,
+  signInWithEmailAndPassword,
+  provider,
+  signInWithPopup,
+} from '../firebase.js';
 import { mensajesModales } from './modales.js';
 
 export function logInForm() {
@@ -30,7 +35,6 @@ export function logInForm() {
             </div>`;
   return logInDiv;
 }
-
 export function login() {
   const ingresar = document.getElementById('loginForm');
   ingresar.addEventListener('submit', (e) => {
@@ -53,5 +57,33 @@ export function login() {
         // const errorCode = error.code;
         // const errorMessage = error.message;
       });
+  });
+
+  const googleSignIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+        sessionStorage.getItem(user);
+        window.location.hash = '#/muro';
+      }).catch((error) => {
+        // Handle Errors here.
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        console.log(errorMessage);
+      });
+  };
+  document.getElementById('google').addEventListener('click', (e) => {
+    e.preventDefault();
+    googleSignIn();
   });
 }

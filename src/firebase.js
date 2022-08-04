@@ -6,10 +6,12 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
-  // eslint-disable-next-line import/no-unresolved
+  GoogleAuthProvider,
+  signInWithPopup,
+// eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
 // eslint-disable-next-line import/no-unresolved
-import { getFirestore, doc, addDoc } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
+import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCLD95CfdnaE3Tx163UXgtsRLGK7aIPq_M',
@@ -23,16 +25,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
-
 export {
   auth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
+  provider,
+  signInWithPopup,
   db,
   doc,
-  addDoc,
-
+  setDoc,
 };

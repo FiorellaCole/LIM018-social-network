@@ -5,7 +5,7 @@ export function firstView(form) {
           <p id="slogan">¡Conéctate con miles de amantes de la comida!</p>
           </div>
           ${form}
-          <div id="mensajeModal"></div>
+          <div id="mensajeModal" style="display:none"></div>
         </section>`;
 
   const divFondo = document.createElement('div');

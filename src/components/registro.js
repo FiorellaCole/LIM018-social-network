@@ -2,11 +2,9 @@ import {
   auth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
-  db,
-  doc,
-  addDoc,
 } from '../firebase.js';
 import { mensajesModales } from './modales.js';
+import { agregarUsuario } from '../firestore.js';
 
 export function registroForm() {
   const registroDiv = `<div id='registro' class='contenedor3'>
@@ -48,13 +46,15 @@ export function signUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         sendEmailVerification(user).then(() => {
-          ubicacionModal.innerHTML = mensajesModales.registroExitoso();
           console.log('Se envio una verificacion al correo!');
-          addDoc(doc(db, "users"), {
-            usuario: usuario,
-            correo: correo,
-          });
+          agregarUsuario(usuario, correo, user.uid);
         });
+        ubicacionModal.style.display = 'inline';
+        ubicacionModal.innerHTML = mensajesModales.registroExitoso();
+        setTimeout(() => {
+          ubicacionModal.style.display = 'none';
+          window.location.hash = '#/inicio';
+        }, 5000);
       })
       .catch((error) => {
         console.log(error);
