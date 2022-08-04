@@ -1,4 +1,11 @@
-import { auth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase.js';
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  db,
+  doc,
+  addDoc,
+} from '../firebase.js';
 import { mensajesModales } from './modales.js';
 
 export function registroForm() {
@@ -32,7 +39,7 @@ export function signUp() {
   const registrarse = document.getElementById('registroForm');
   registrarse.addEventListener('submit', (e) => {
     e.preventDefault();// ----> Para que no se refresque la página.
-    // const usuario = document.getElementById('usuario').value;
+    const usuario = document.getElementById('usuario').value;
     const correo = document.getElementById('correoRegistro').value;
     const contraseña = document.getElementById('contraseñaRegistro').value;
     const ubicacionModal = document.getElementById('mensajeModal');
@@ -43,6 +50,10 @@ export function signUp() {
         sendEmailVerification(user).then(() => {
           ubicacionModal.innerHTML = mensajesModales.registroExitoso();
           console.log('Se envio una verificacion al correo!');
+          addDoc(doc(db, "users"), {
+            usuario: usuario,
+            correo: correo,
+          });
         });
       })
       .catch((error) => {

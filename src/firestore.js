@@ -1,0 +1,1 @@
+import {db, doc, addDoc} from '../firebase.js'
