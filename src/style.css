@@ -22,7 +22,6 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .contenedor2 {
@@ -40,16 +39,15 @@ body{
 
 .contenedor2 p {
     color: #FFFFFF;
-    font-family: 'Kalam', cursive;
+    /* font-family: 'Kalam', cursive; */
     font-weight: lighter;
-    font-size: 16px;
+    font-size: 18px;
+    text-align: center;
     margin-top: 5%;
-
 }
 
 .contenedor3 {
     width: 100%;
-
 }
 
 .contenedor3 form {
@@ -132,11 +130,18 @@ i {
     align-items: center;
 }
 
-.mensaje .ph-envelope{
+.mensaje .ph-envelope {
     color:#D40A19;
     font-size: 40px;
     font-weight:bolder;
 }
+
+.mensaje .ph-warning-circle{
+    color:#D40A19;
+    font-size: 40px;
+    font-weight:bolder;
+}
+
 .mensaje {
     position: relative;
     background: #FFFFFF;

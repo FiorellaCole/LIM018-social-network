@@ -46,7 +46,6 @@ export function signUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         sendEmailVerification(user).then(() => {
-          console.log('Se envio una verificacion al correo!');
           agregarUsuario(usuario, correo, user.uid);
         });
         ubicacionModal.style.display = 'inline';
@@ -57,9 +56,25 @@ export function signUp() {
         }, 5000);
       })
       .catch((error) => {
-        console.log(error);
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
+        if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+          ubicacionModal.style.display = 'inline';
+          ubicacionModal.innerHTML = mensajesModales.correoYaRegistrado();
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 4000);
+        } else if (error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).') {
+          ubicacionModal.style.display = 'inline';
+          ubicacionModal.innerHTML = mensajesModales.contraseñaDebil();
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 4000);
+        } else {
+          ubicacionModal.style.display = 'inline';
+          ubicacionModal.innerHTML = mensajesModales.otrosErrores(error.message);
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 4000);
+        }
       });
   });
 }

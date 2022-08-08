@@ -26,7 +26,6 @@ export function logInForm() {
             <p class="text">o ingresa con:</p>
 
             <div class="iconosInicio">
-            <img id="facebook" src="images/fb.png">
             <img id="google" src="images/google.png">
             </div>
 
@@ -49,13 +48,33 @@ export function login() {
         if (user.emailVerified === true) {
           window.location.hash = '#/muro';
         } else {
+          ubicacionModal.style.display = 'inline';
           ubicacionModal.innerHTML = mensajesModales.errorConfirmar();
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 4000);
         }
       })
       .catch((error) => {
-        console.log(error);
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
+        if (error.message === 'Firebase: Error (auth/user-not-found).') {
+          ubicacionModal.style.display = 'inline';
+          ubicacionModal.innerHTML = mensajesModales.errorNoRegistrado();
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 4000);
+        } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
+          ubicacionModal.style.display = 'inline';
+          ubicacionModal.innerHTML = mensajesModales.errorContraseña();
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 3500);
+        } else {
+          ubicacionModal.style.display = 'inline';
+          ubicacionModal.innerHTML = mensajesModales.otrosErrores(error.message);
+          setTimeout(() => {
+            ubicacionModal.style.display = 'none';
+          }, 4000);
+        }
       });
   });
 
