@@ -1,4 +1,5 @@
 import { auth, signOut } from '../firebase.js';
+import { crearPost, OngetTask } from '../firestore.js';
 
 export function headerMuro() {
   const headerMuroDiv = `<header class="muroHeader">
@@ -70,3 +71,32 @@ export function publicaciones(usuario, categoria) {
   divPublicaciones.innerHTML = publicacionesMuro;
   return divPublicaciones;
 }
+export const getPosts = async () => {
+  const taskContainer = document.getElementById('cuadroTexto');
+  OngetTask((querySnapshot) => {
+    let html = '';
+    querySnapshot.forEach((doc) => {
+      // eslint-disable-next-line no-console
+      console.log(doc.data());
+      const dataPosts = doc.data();
+      html += `
+        <div class="text">
+          <p>${dataPosts.description}</p>
+        </div>
+    `;
+    });
+    taskContainer.innerHTML = html;
+  });
+};
+
+export const addHomePageEvents = () => {
+  const taskForm = document.getElementById('cuadroTexto');
+  taskForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const description = taskForm['task-description'];
+
+    crearPost(description.value);
+    taskForm.reset();
+  });
+};

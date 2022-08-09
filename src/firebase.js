@@ -10,8 +10,8 @@ import {
   signInWithPopup,
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
-// eslint-disable-next-line import/no-unresolved
-import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
+// eslint-disable-next-line import/no-unresolved, object-curly-newline
+import { getFirestore, doc, setDoc, addDoc, getDoc, collection, updateDoc, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCLD95CfdnaE3Tx163UXgtsRLGK7aIPq_M',
@@ -38,4 +38,11 @@ export {
   db,
   doc,
   setDoc,
+  addDoc,
+  getDoc,
+  collection,
+  updateDoc,
+  onSnapshot,
+  query,
+  orderBy,
 };
