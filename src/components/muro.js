@@ -59,3 +59,14 @@ export function divCompartir() {
   divSeccionCompartir.innerHTML = seccionCompartir;
   return divSeccionCompartir;
 }
+
+export function publicaciones(usuario, categoria) {
+  const publicacionesMuro = `<div class="posts">
+  <div class="usuarioPost"><img class="imgUsuario" src="images/usuarioimg.png"><h1>${usuario}</h1></div>
+  <p>${categoria}</p>
+  </div>`;
+
+  const divPublicaciones = document.createElement('div');
+  divPublicaciones.innerHTML = publicacionesMuro;
+  return divPublicaciones;
+}

@@ -17,6 +17,7 @@ export const changeView = (route) => {
       components.cerrarsesion();
       container.appendChild(components.categoriasMuro());
       container.appendChild(components.seccionCompartir());
+      container.appendChild(components.publicacionesMuro());
       break;
     default:
       container.innerHTML = 'Página No Encontrada';

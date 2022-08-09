@@ -6,6 +6,7 @@ import {
   cerrarSesion,
   categorias,
   divCompartir,
+  publicaciones,
 } from './muro.js';
 
 export const components = {
@@ -18,4 +19,5 @@ export const components = {
   cerrarsesion: cerrarSesion,
   categoriasMuro: categorias,
   seccionCompartir: divCompartir,
+  publicacionesMuro: publicaciones,
 };
