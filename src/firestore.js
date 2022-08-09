@@ -1,14 +1,14 @@
-import { 
+import {
   db,
   doc,
   setDoc,
   addDoc,
-  getDoc,
-  query,
+  // getDoc,
+  // query,
   collection,
   onSnapshot,
-  updateDoc,
-  orderBy,
+  // updateDoc,
+  // orderBy,
 } from './firebase.js';
 
 export async function agregarUsuario(usuario, correo, id) {
@@ -18,7 +18,8 @@ export async function agregarUsuario(usuario, correo, id) {
   });
 }
 
-export const createPost = (uid, post, datePost, state, likes) => {
+// crear post
+export const crearPost = (uid, post, datePost, state, likes) => {
   addDoc(collection(db, 'post'), {
     uid,
     post,
@@ -28,7 +29,11 @@ export const createPost = (uid, post, datePost, state, likes) => {
   });
 };
 
-export const getPost = (querySnapshot) => {
+// obtener post
+export const OngetTask = (callback) => onSnapshot(collection(db, 'post'), callback);
+
+/* export const getPost = (querySnapshot) => {
   const queryPost = query(collection(db, 'post'), orderBy('datePost', 'desc'));
   onSnapshot(queryPost, querySnapshot);
 };
+*/
