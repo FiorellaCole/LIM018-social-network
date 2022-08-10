@@ -11,7 +11,17 @@ import {
 // eslint-disable-next-line import/no-unresolved
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
 // eslint-disable-next-line import/no-unresolved, object-curly-newline
-import { getFirestore, doc, setDoc, addDoc, getDoc, collection, updateDoc, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  addDoc,
+  getDocs,
+  collection,
+  updateDoc,
+  onSnapshot,
+  orderBy,
+} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCLD95CfdnaE3Tx163UXgtsRLGK7aIPq_M',
@@ -27,6 +37,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
+
 export {
   auth,
   createUserWithEmailAndPassword,
@@ -39,10 +50,9 @@ export {
   doc,
   setDoc,
   addDoc,
-  getDoc,
+  getDocs,
   collection,
   updateDoc,
   onSnapshot,
-  query,
   orderBy,
 };

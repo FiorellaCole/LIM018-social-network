@@ -1,5 +1,5 @@
 import { auth, signOut } from '../firebase.js';
-import { crearPost, OngetTask } from '../firestore.js';
+import { crearPost, showFirestorePosts } from '../firestore.js';
 
 export function headerMuro() {
   const headerMuroDiv = `<header class="muroHeader">
@@ -28,7 +28,7 @@ export function cerrarSesion() {
   });
 }
 
-export function categorias() {
+export function divCategorias() {
   const navegadorCategorias = ` <nav class="categorias">
   <ul class="listaCategorias" >
     <li id="todo"><img src="images/todo.png">Todo</li>
@@ -43,60 +43,55 @@ export function categorias() {
 }
 export function divCompartir() {
   const seccionCompartir = `<section id="compartir">
-  <textarea id="cuadroTexto" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5"></textarea>
+  <textarea id="description" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5"></textarea>
   <div class="botonesCompartir">
-  <select class="btn Categorias">
+  <select id="categorias" class="btn Categorias">
     <option value="" selected disabled>Categorias</option>
     <option value="Restaurantes">Restaurantes</option>
     <option value="Recetas">Recetas</option>
     <option value="Streetfood">Streetfood</option>
   </select>
+  <div class="seccionCompartir">
   <input type="file" id="añadirImagen">
   <label for="añadirImagen"><i class="ph-image-bold"></i></label>
-  <button class="btn">Compartir</button>
+  <button class="btn" id="btnCompartir">Compartir</button>
   </div>
+  </div>
+</section>
+<section id="postContainer" class="postContainer"
 </section>`;
   const divSeccionCompartir = document.createElement('div');
   divSeccionCompartir.innerHTML = seccionCompartir;
   return divSeccionCompartir;
 }
 
-export function publicaciones(usuario, categoria) {
-  const publicacionesMuro = `<div class="posts">
-  <div class="usuarioPost"><img class="imgUsuario" src="images/usuarioimg.png"><h1>${usuario}</h1></div>
-  <p>${categoria}</p>
-  </div>`;
-
-  const divPublicaciones = document.createElement('div');
-  divPublicaciones.innerHTML = publicacionesMuro;
-  return divPublicaciones;
+export function addPosts() {
+  const postSection = document.getElementById('btnCompartir');
+  const categorias = document.getElementById('categorias');
+  postSection.addEventListener('click', () => {
+    let description = document.getElementById('description').value;
+    const categoriaSeleccionada = categorias.options[categorias.selectedIndex].value;
+    console.log(description, categoriaSeleccionada);
+    crearPost(description, categoriaSeleccionada);
+    description = ' '; // <----Porque no borra?????????
+  });
 }
-export const getPosts = async () => {
-  const taskContainer = document.getElementById('cuadroTexto');
-  OngetTask((querySnapshot) => {
-    let html = '';
-    querySnapshot.forEach((doc) => {
-      // eslint-disable-next-line no-console
-      console.log(doc.data());
-      const dataPosts = doc.data();
-      html += `
-        <div class="text">
-          <p>${dataPosts.description}</p>
-        </div>
-    `;
+
+export async function showAllPosts() {
+  const postContainer = document.getElementById('postContainer');
+  // const postsFirestore = await getPost();
+  showFirestorePosts((postsFirestore) => {
+    postContainer.innerHTML = '';
+    postsFirestore.forEach((doc) => {
+      const post = doc.data();
+      postContainer.innerHTML += `<div class="posts">
+    <div class="headerPost">
+    <div class="usuarioPost"><img class="imgUsuario" src="images/usuarioimg.png">
+    <h1>Usuario</h1></div>
+    <h2>${post.categoria}</h2>
+    </div>
+    <p>${post.description}</p>
+    </div>`;
     });
-    taskContainer.innerHTML = html;
   });
-};
-
-export const addHomePageEvents = () => {
-  const taskForm = document.getElementById('cuadroTexto');
-  taskForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const description = taskForm['task-description'];
-
-    crearPost(description.value);
-    taskForm.reset();
-  });
-};
+}

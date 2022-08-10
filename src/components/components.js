@@ -4,9 +4,10 @@ import { registroForm, signUp } from './registro.js';
 import {
   headerMuro,
   cerrarSesion,
-  categorias,
+  divCategorias,
   divCompartir,
-  publicaciones,
+  addPosts,
+  showAllPosts,
 } from './muro.js';
 
 export const components = {
@@ -17,7 +18,8 @@ export const components = {
   signup: signUp,
   muro: headerMuro,
   cerrarsesion: cerrarSesion,
-  categoriasMuro: categorias,
+  categoriasMuro: divCategorias,
   seccionCompartir: divCompartir,
-  publicacionesMuro: publicaciones,
+  addPost: addPosts,
+  showPosts: showAllPosts,
 };

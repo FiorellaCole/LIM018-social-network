@@ -215,10 +215,11 @@ i {
     flex-direction: column;
 }
 
-#cuadroTexto {
+#description {
     border-radius: 10px;
     border: 1px solid rgba(23, 21, 21, 0.28);
     margin: 2%;
+    padding: 1%;
 }
 
 .botonesCompartir {
@@ -242,9 +243,14 @@ i {
     font-weight: 600;
 }
 
+.seccionCompartir{
+    display: flex;
+    justify-content: space-between;
+}
+
 .botonesCompartir i{
-    color: #000000;
-    font-weight: 800;
+    color: #D40A19;
+    font-size: 26px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -256,9 +262,35 @@ i {
     border-radius: 10px;
     margin: 5% 5% 0% 5%;
     display: flex;
+    flex-direction: column;
+}
+
+.headerPost{
+    display:flex;
     justify-content: space-between;
+    margin: 2%;
+}
+
+.headerPost h2{
+    font-size: 12px;
+    color: #CFBABA;
+    margin: 1%;
+}
+.usuarioPost{
+    display:flex;
+    justify-content: flex-start;
+}
+
+.usuarioPost h1{
+    font-size: 20px;
+    margin: 1%;
 }
 
 .imgUsuario{
-    width: 5%;
+    width: 9%;
+    height: 85%;
+}
+
+.posts p{
+    margin: 3%;
 }

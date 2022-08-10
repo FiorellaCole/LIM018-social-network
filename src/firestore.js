@@ -3,8 +3,7 @@ import {
   doc,
   setDoc,
   addDoc,
-  // getDoc,
-  // query,
+  getDocs,
   collection,
   onSnapshot,
   // updateDoc,
@@ -18,22 +17,8 @@ export async function agregarUsuario(usuario, correo, id) {
   });
 }
 
-// crear post
-export const crearPost = (uid, post, datePost, state, likes) => {
-  addDoc(collection(db, 'post'), {
-    uid,
-    post,
-    datePost,
-    state,
-    likes,
-  });
-};
+export const crearPost = (description, categoria) => addDoc(collection(db, 'post'), { description, categoria });
 
-// obtener post
-export const OngetTask = (callback) => onSnapshot(collection(db, 'post'), callback);
+export const getPost = () => getDocs(collection(db, 'post'));
 
-/* export const getPost = (querySnapshot) => {
-  const queryPost = query(collection(db, 'post'), orderBy('datePost', 'desc'));
-  onSnapshot(queryPost, querySnapshot);
-};
-*/
+export const showFirestorePosts = (posts) => onSnapshot(collection(db, 'post'), posts);
