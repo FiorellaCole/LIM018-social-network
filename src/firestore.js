@@ -18,7 +18,9 @@ export async function agregarUsuario(
   });
 }
 
-export const crearPost = (description, categoria) => addDoc(collection(db, 'post'), { description, categoria });
+export const crearPost = (userphoto, user, description, categoria) => addDoc(collection(db, 'post'), { 
+  userphoto, user, description, categoria,
+});
 
 export const getPost = () => getDocs(collection(db, 'post'));
 

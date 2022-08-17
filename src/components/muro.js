@@ -2,12 +2,12 @@ import { auth, signOut } from '../firebase.js';
 import { crearPost, showFirestorePosts } from '../firestore.js';
 
 export function headerMuro() {
-  const user = JSON.parse(sessionStorage.getItem('user'));
+  // const user = JSON.parse(sessionStorage.getItem('user'));
   const headerMuroDiv = `<header class="muroHeader">
   <img src="images/logo foodies.png" alt="Foodies">
   <div class="derechaHeader">
-    <p id="nombreUsuario">${user.username}</p>
-    <a href="#/perfil"><img class="iconoUsuario" src="${user.fotoPerfil}"></a>
+    <p id="nombreUsuario"></p>
+    <a href="#/perfil"><img class="iconoUsuario" src=""></a>
     <i id="cerrarSesion" class="ph-sign-out"></i>
   </div>
 </header>`;
@@ -69,10 +69,11 @@ export function divCompartir() {
 export function addPosts() {
   const postSection = document.getElementById('btnCompartir');
   const categorias = document.getElementById('categorias');
+  const user = JSON.parse(sessionStorage.getItem('user'));
   postSection.addEventListener('click', () => {
     const description = document.getElementById('description');
     const categoriaSeleccionada = categorias.options[categorias.selectedIndex].value;
-    crearPost(description.value, categoriaSeleccionada);
+    crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada);
     description.value = '';
   });
 }
@@ -81,15 +82,14 @@ export async function showAllPosts() {
   const postContainer = document.getElementById('postContainer');
   // const querySnapshot = await getPost();
   showFirestorePosts((querySnapshot) => {
-    const user = JSON.parse(sessionStorage.getItem('user'));
     postContainer.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const post = doc.data();
       postContainer.innerHTML += `<div class="posts">
     <div class="headerPost">
     <div class="usuarioPost">
-    <img class="imgUsuario" src="${user.fotoPerfil}">
-    <h1>${user.username}</h1></div>
+    <img class="imgUsuario" src="${post.userphoto}">
+    <h1>${post.user}</h1></div>
     <h2>${post.categoria}</h2>
     </div>
     <p>${post.description}</p>
