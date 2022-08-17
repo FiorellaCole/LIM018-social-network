@@ -4,6 +4,7 @@ import {
   provider,
   signInWithPopup,
 } from '../firebase.js';
+import { getUserInfo } from '../firestore.js';
 import { mensajesModales } from './modales.js';
 
 export function logInForm() {
@@ -46,6 +47,9 @@ export function login() {
       .then((userCredential) => {
         const user = userCredential.user;
         if (user.emailVerified === true) {
+          getUserInfo('users', user.uid).then((data) => {
+            sessionStorage.setItem('user', JSON.stringify(data));
+          });
           window.location.hash = '#/muro';
         } else {
           ubicacionModal.style.display = 'inline';
@@ -61,7 +65,7 @@ export function login() {
           ubicacionModal.innerHTML = mensajesModales.errorNoRegistrado();
           setTimeout(() => {
             ubicacionModal.style.display = 'none';
-          }, 4000);
+          }, 3500);
         } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
           ubicacionModal.style.display = 'inline';
           ubicacionModal.innerHTML = mensajesModales.errorContraseña();
@@ -73,7 +77,7 @@ export function login() {
           ubicacionModal.innerHTML = mensajesModales.otrosErrores(error.message);
           setTimeout(() => {
             ubicacionModal.style.display = 'none';
-          }, 4000);
+          }, 3500);
         }
       });
   });
@@ -81,13 +85,10 @@ export function login() {
   const googleSignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
         const user = result.user;
         sessionStorage.getItem(user);
         window.location.hash = '#/muro';
       }).catch((error) => {
-        // Handle Errors here.
         // const errorCode = error.code;
         const errorMessage = error.message;
         // const credential = GoogleAuthProvider.credentialFromError(error);
