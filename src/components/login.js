@@ -47,7 +47,6 @@ export function login() {
       .then((userCredential) => {
         const user = userCredential.user;
         if (user.emailVerified === true) {
-          sessionStorage.clear();
           getUserInfo('users', user.uid).then((data) => {
             sessionStorage.setItem('user', JSON.stringify(data));
           });

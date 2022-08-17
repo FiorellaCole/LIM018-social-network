@@ -22,6 +22,7 @@ export function cerrarSesion() {
   salir.addEventListener('click', () => {
     signOut(auth)
       .then(() => {
+        sessionStorage.clear();
         window.location.hash = '#/inicio';
       }).catch((error) => {
         console.log(error);
