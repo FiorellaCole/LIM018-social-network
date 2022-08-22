@@ -4,7 +4,7 @@ import {
   provider,
   signInWithPopup,
 } from '../firebase.js';
-import { getUserInfo } from '../firestore.js';
+import { agregarUsuario, getUserInfo } from '../firestore.js';
 import { mensajesModales } from './modales.js';
 
 export function logInForm() {
@@ -48,9 +48,9 @@ export function login() {
         const user = userCredential.user;
         if (user.emailVerified === true) {
           getUserInfo('users', user.uid).then((data) => {
-            sessionStorage.setItem('user', JSON.stringify(data));
+            sessionStorage.setItem('user', JSON.stringify(data)); // ---> Agregando datos al Storage
+            window.location.hash = '#/muro';
           });
-          window.location.hash = '#/muro';
         } else {
           ubicacionModal.style.display = 'inline';
           ubicacionModal.innerHTML = mensajesModales.errorConfirmar();
@@ -83,16 +83,28 @@ export function login() {
   });
 
   const googleSignIn = () => {
+    const ubicacionModal = document.getElementById('mensajeModal');
     signInWithPopup(auth, provider)
       .then((result) => {
-        const user = result.user;
-        sessionStorage.getItem(user);
-        window.location.hash = '#/muro';
+        const googleUser = result.user;
+        getUserInfo('users', googleUser.uid).then((user) => {
+          console.log(user);
+          if (user !== undefined) {
+            sessionStorage.setItem('user', JSON.stringify(user)); // ---> Agregando datos al Storage
+            window.location.hash = '#/muro';
+          } else {
+            agregarUsuario(
+              googleUser.displayName, googleUser.email, googleUser.uid, '', '', '', googleUser.photoURL, 'images/portadaUsuario.jpg');
+            sessionStorage.setItem('user', JSON.stringify(user)); // ---> Agregando datos al Storage
+            window.location.hash = '#/muro';
+          }
+        });
       }).catch((error) => {
-        // const errorCode = error.code;
-        const errorMessage = error.message;
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorMessage);
+        ubicacionModal.style.display = 'inline';
+        ubicacionModal.innerHTML = mensajesModales.otrosErrores(error.message);
+        setTimeout(() => {
+          ubicacionModal.style.display = 'none';
+        }, 3500);
       });
   };
   document.getElementById('google').addEventListener('click', (e) => {

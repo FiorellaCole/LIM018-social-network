@@ -19,6 +19,7 @@ export const changeView = (route) => {
       container.appendChild(components.seccionCompartir());
       components.addPost();
       components.showPosts();
+      components.deletePost();
       break;
     default:
       container.innerHTML = 'Página No Encontrada';

@@ -2,12 +2,12 @@ import { auth, signOut } from '../firebase.js';
 import { crearPost, showFirestorePosts } from '../firestore.js';
 
 export function headerMuro() {
-  // const user = JSON.parse(sessionStorage.getItem('user'));
+  const user = JSON.parse(sessionStorage.getItem('user'));
   const headerMuroDiv = `<header class="muroHeader">
   <img src="images/logo foodies.png" alt="Foodies">
   <div class="derechaHeader">
-    <p id="nombreUsuario"></p>
-    <a href="#/perfil"><img class="iconoUsuario" src=""></a>
+    <p id="nombreUsuario">${user.username}</p>
+    <a href="#/perfil"><img class="iconoUsuario" src="${user.fotoPerfil}"></a>
     <i id="cerrarSesion" class="ph-sign-out"></i>
   </div>
 </header>`;
@@ -86,7 +86,9 @@ export async function showAllPosts() {
     postContainer.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const post = doc.data();
-      postContainer.innerHTML += `<div class="posts">
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      const isAuthor = user.username === post.user;
+      postContainer.innerHTML += `<div class="posts" id='${doc.id}'>
     <div class="headerPost">
     <div class="usuarioPost">
     <img class="imgUsuario" src="${post.userphoto}">
@@ -94,10 +96,23 @@ export async function showAllPosts() {
     <h2>${post.categoria}</h2>
     </div>
     <p>${post.description}</p>
-    <div class="botones">
+    ${isAuthor ? `<div class="botones">
     <i class="ph-pencil-simple-bold"></i>
     <i class="ph-trash-bold"></i>
-    </div>`;
+    </div>` : ''}</div>`;
     });
   });
+}
+
+export function eliminarPost() {
+  const postContainer = document.getElementById('postContainer');
+  const x = postContainer.getElementsByClassName('posts');
+  console.log(x);
+  const botonesEliminar = x.querySelectorAll('.ph-trash-bold');
+  console.log(botonesEliminar);
+  botonesEliminar.forEach((btn) => btn.addEventListener('click', (e) => {
+    const btnEliminarId = e.target.id;
+    console.log(btnEliminarId);
+  }),
+  )
 }

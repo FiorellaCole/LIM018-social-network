@@ -8,6 +8,7 @@ import {
   divCompartir,
   addPosts,
   showAllPosts,
+  eliminarPost,
 } from './muro.js';
 
 export const components = {
@@ -22,4 +23,5 @@ export const components = {
   seccionCompartir: divCompartir,
   addPost: addPosts,
   showPosts: showAllPosts,
+  deletePost: eliminarPost,
 };

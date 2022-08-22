@@ -22,6 +22,7 @@ import {
   updateDoc,
   onSnapshot,
   orderBy,
+  deleteDoc,
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -57,4 +58,5 @@ export {
   updateDoc,
   onSnapshot,
   orderBy,
+  deleteDoc,
 };
