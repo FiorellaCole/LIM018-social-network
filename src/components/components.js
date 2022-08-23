@@ -1,6 +1,7 @@
 import { firstView } from './firstview.js';
 import { logInForm, login } from './login.js';
 import { registroForm, signUp } from './registro.js';
+import { perfil } from './perfil.js';
 import {
   headerMuro,
   cerrarSesion,
@@ -8,7 +9,6 @@ import {
   divCompartir,
   addPosts,
   showAllPosts,
-  eliminarPost,
 } from './muro.js';
 
 export const components = {
@@ -23,5 +23,5 @@ export const components = {
   seccionCompartir: divCompartir,
   addPost: addPosts,
   showPosts: showAllPosts,
-  deletePost: eliminarPost,
+  profile: perfil,
 };

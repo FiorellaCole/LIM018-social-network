@@ -119,7 +119,7 @@ i {
 
 /* Mensajes modales */
 
-#mensajeModal {
+#mensajeModal, #modalEditar {
     position: absolute;
     padding-top: 97%;
     z-index: 100;
@@ -163,14 +163,36 @@ i {
     justify-content: space-between;
 }
 
-.muroHeader img {
+#foodiesLogo {
     width: 35%;
     margin: 5px 0px 5px 5px;
 }
 
+.derechaHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+#nombreUsuario{
+    color:#FFFFFF;
+    font-size: 12px;
+}
+
+.derechaHeader a {
+    width: 30px;   
+}
+
+.iconoUsuario{
+    width: 100%;
+    margin: 5px;
+    border-radius: 100%;
+}
+
 .derechaHeader i {
     color: #FFFFFF;
-    margin-right: 8px;
+    margin: 5px 8px 5px 9px;
 }
 
 .categorias {
@@ -294,3 +316,39 @@ i {
 .posts p{
     margin: 3%;
 }
+
+.postEdition {
+    position: relative;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    max-width: 90%;
+    padding: 1%;
+    margin: auto;
+}
+
+/*Perfil*/
+
+.portada, .userImagenes{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userPortada{
+    width: 100%;
+    height: 50%;
+}
+
+.userFoto{
+    width: 40%;
+    position: absolute;
+    margin-top: 75%;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+}
+
+.userTitle{
+    margin-top: 18%;
+}
+

@@ -1,10 +1,10 @@
 import { auth, signOut } from '../firebase.js';
-import { crearPost, showFirestorePosts } from '../firestore.js';
+import { crearPost, showFirestorePosts, deletePost, getPost, updatePost } from '../firestore.js';
 
 export function headerMuro() {
   const user = JSON.parse(sessionStorage.getItem('user'));
   const headerMuroDiv = `<header class="muroHeader">
-  <img src="images/logo foodies.png" alt="Foodies">
+  <a href="#/muro"><img id="foodiesLogo" src="images/logo foodies.png" alt="Foodies"></a>
   <div class="derechaHeader">
     <p id="nombreUsuario">${user.username}</p>
     <a href="#/perfil"><img class="iconoUsuario" src="${user.fotoPerfil}"></a>
@@ -60,7 +60,8 @@ export function divCompartir() {
   </div>
   </div>
 </section>
-<section id="postContainer" class="postContainer"
+<section id="postContainer" class="postContainer">
+<div id="modalEditar" style="display:none">jaja</div>
 </section>`;
   const divSeccionCompartir = document.createElement('div');
   divSeccionCompartir.innerHTML = seccionCompartir;
@@ -79,16 +80,46 @@ export function addPosts() {
   });
 }
 
-export async function showAllPosts() {
+function eliminarPost(e) {
+  deletePost(e.target.dataset.id);
+}
+
+async function editarPost(e) {
+  const doc = await getPost(e.target.dataset.id);
+  const post = doc.data();
   const postContainer = document.getElementById('postContainer');
-  // const querySnapshot = await getPost();
+  console.log(postContainer);
+  // const ubicacionModal = postContainer.querySelector('#modalEditar');
+  // console.log(ubicacionModal);
+  // ubicacionModal.style.display = 'inline';
+  // ubicacionModal.innerHTML = `<div class="postEdition">
+  //   <div class="headerPost">
+  //   <div class="usuarioPost">
+  //   <img class="imgUsuario" src="${post.userphoto}">
+  //   <h1>${post.user}</h1></div>
+  //   <h2>${post.categoria}</h2>
+  //   </div>
+  //   <p>${post.description}</p>
+  //   <button>Guardar</button>
+  //   </div>`;
+}
+
+export function setupBotones() {
+  const botonesEliminar = document.getElementsByClassName('ph-trash-bold');
+  const botonesEditar = document.getElementsByClassName('ph-pencil-simple-bold');
+  Array.from(botonesEliminar).forEach((btn) => btn.addEventListener('click', eliminarPost));
+  Array.from(botonesEditar).forEach((btn) => btn.addEventListener('click', editarPost));
+}
+
+export function showAllPosts() {
+  const postContainer = document.getElementById('postContainer');
   showFirestorePosts((querySnapshot) => {
     postContainer.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const post = doc.data();
       const user = JSON.parse(sessionStorage.getItem('user'));
-      const isAuthor = user.username === post.user;
-      postContainer.innerHTML += `<div class="posts" id='${doc.id}'>
+      const UsuarioLogeado = user.username === post.user;
+      postContainer.innerHTML += `<div class="posts" data-id='${doc.id}'>
     <div class="headerPost">
     <div class="usuarioPost">
     <img class="imgUsuario" src="${post.userphoto}">
@@ -96,23 +127,12 @@ export async function showAllPosts() {
     <h2>${post.categoria}</h2>
     </div>
     <p>${post.description}</p>
-    ${isAuthor ? `<div class="botones">
-    <i class="ph-pencil-simple-bold"></i>
-    <i class="ph-trash-bold"></i>
+    ${UsuarioLogeado ? `<div class="botones">
+    <i data-id ="${doc.id}" class="ph-pencil-simple-bold"></i>
+    <i data-id ="${doc.id}" class="ph-trash-bold"></i>
     </div>` : ''}</div>`;
     });
-  });
-}
 
-export function eliminarPost() {
-  const postContainer = document.getElementById('postContainer');
-  const x = postContainer.getElementsByClassName('posts');
-  console.log(x);
-  const botonesEliminar = x.querySelectorAll('.ph-trash-bold');
-  console.log(botonesEliminar);
-  botonesEliminar.forEach((btn) => btn.addEventListener('click', (e) => {
-    const btnEliminarId = e.target.id;
-    console.log(btnEliminarId);
-  }),
-  )
+    setupBotones();
+  });
 }

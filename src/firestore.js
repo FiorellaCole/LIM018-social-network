@@ -4,11 +4,10 @@ import {
   setDoc,
   addDoc,
   getDoc,
-  getDocs,
   collection,
   onSnapshot,
   deleteDoc,
-  // updateDoc,
+  updateDoc,
   // orderBy,
 } from './firebase.js';
 
@@ -29,10 +28,15 @@ export const crearPost = (userphoto, user, description, categoria) => addDoc(col
   userphoto, user, description, categoria,
 });
 
-export const getPost = () => getDocs(collection(db, 'post'));
-
 export const showFirestorePosts = (posts) => onSnapshot(collection(db, 'post'), posts);
 
-export async function deletePost(postId) {
-  await deleteDoc(doc(db, 'post', postId));
+export function deletePost(postId) {
+  deleteDoc(doc(db, 'post', postId));
+}
+export function getPost(postId) {
+  return getDoc(doc(db, 'post', postId));
+}
+
+export function updatePost(postId, newFields) {
+  updateDoc(doc(db, 'post', postId), newFields);
 }

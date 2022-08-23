@@ -19,7 +19,10 @@ export const changeView = (route) => {
       container.appendChild(components.seccionCompartir());
       components.addPost();
       components.showPosts();
-      components.deletePost();
+      break;
+    case '#/perfil':
+      container.appendChild(components.muro());
+      container.appendChild(components.profile());
       break;
     default:
       container.innerHTML = 'Página No Encontrada';
