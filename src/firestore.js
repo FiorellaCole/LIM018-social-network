@@ -37,6 +37,6 @@ export function getPost(postId) {
   return getDoc(doc(db, 'post', postId));
 }
 
-export function updatePost(postId, newFields) {
-  updateDoc(doc(db, 'post', postId), newFields);
+export function updatePost(postId, postData) {
+  return updateDoc(doc(db, 'post', postId), postData);
 }

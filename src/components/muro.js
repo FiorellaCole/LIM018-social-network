@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { auth, signOut } from '../firebase.js';
 import { crearPost, showFirestorePosts, deletePost, getPost, updatePost } from '../firestore.js';
 
@@ -10,7 +11,8 @@ export function headerMuro() {
     <a href="#/perfil"><img class="iconoUsuario" src="${user.fotoPerfil}"></a>
     <i id="cerrarSesion" class="ph-sign-out"></i>
   </div>
-</header>`;
+</header>
+<div id="modalEditar" style="display:none"></div>`;
 
   const divHeaderMuro = document.createElement('div');
   divHeaderMuro.innerHTML = headerMuroDiv;
@@ -45,23 +47,22 @@ export function divCategorias() {
 }
 export function divCompartir() {
   const seccionCompartir = `<section id="compartir">
-  <textarea id="description" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5"></textarea>
+  <textarea class="description" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5" required></textarea>
   <div class="botonesCompartir">
-  <select id="categorias" class="btn Categorias">
+  <select id="categorias" class="btn Categorias" required>
     <option value="" selected disabled>Categorias</option>
     <option value="Restaurantes">Restaurantes</option>
     <option value="Recetas">Recetas</option>
     <option value="Streetfood">Streetfood</option>
   </select>
-  <div class="seccionCompartir">
-  <input type="file" id="añadirImagen">
-  <label for="añadirImagen"><i class="ph-image-bold"></i></label>
-  <button class="btn" id="btnCompartir">Compartir</button>
-  </div>
+    <div class="seccionCompartir">
+      <input type="file" id="añadirImagen">
+      <label for="añadirImagen"><i class="ph-image-bold"></i></label>
+      <button class="btn" id="btnCompartir">Compartir</button>
+    </div>
   </div>
 </section>
 <section id="postContainer" class="postContainer">
-<div id="modalEditar" style="display:none">jaja</div>
 </section>`;
   const divSeccionCompartir = document.createElement('div');
   divSeccionCompartir.innerHTML = seccionCompartir;
@@ -80,28 +81,38 @@ export function addPosts() {
   });
 }
 
-function eliminarPost(e) {
-  deletePost(e.target.dataset.id);
-}
-
-async function editarPost(e) {
-  const doc = await getPost(e.target.dataset.id);
-  const post = doc.data();
+export function showAllPosts() {
   const postContainer = document.getElementById('postContainer');
-  console.log(postContainer);
-  // const ubicacionModal = postContainer.querySelector('#modalEditar');
-  // console.log(ubicacionModal);
-  // ubicacionModal.style.display = 'inline';
-  // ubicacionModal.innerHTML = `<div class="postEdition">
-  //   <div class="headerPost">
-  //   <div class="usuarioPost">
-  //   <img class="imgUsuario" src="${post.userphoto}">
-  //   <h1>${post.user}</h1></div>
-  //   <h2>${post.categoria}</h2>
-  //   </div>
-  //   <p>${post.description}</p>
-  //   <button>Guardar</button>
-  //   </div>`;
+  showFirestorePosts((querySnapshot) => {
+    postContainer.innerHTML = '';
+    querySnapshot.forEach((doc) => {
+      const post = doc.data();
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      const UsuarioLogeado = user.username === post.user;
+      postContainer.innerHTML += `<section class="posts" data-id='${doc.id}'>
+      <div class="headerPost">
+        <div class="usuarioPost">
+          <img class="imgUsuario" src="${post.userphoto}">
+          <h1>${post.user}</h1>
+        </div>
+        <h2 class="categoria">${post.categoria}</h2>
+      </div>
+      <p>${post.description}</p>
+      <hr id="linea">
+        <section class="botones">
+          <div class="likes">
+            <i class="ph-heart-bold"></i> 
+            <p id="contador">0</p>
+          </div>
+          ${UsuarioLogeado ? `<div class="botonesUsuario">
+          <i data-id ="${doc.id}" class="ph-pencil-simple-bold"></i>
+          <i data-id ="${doc.id}" class="ph-trash-bold"></i>
+          </div>` : ''}
+        </section>
+   </section>`;
+    });
+    setupBotones();
+  });
 }
 
 export function setupBotones() {
@@ -111,28 +122,58 @@ export function setupBotones() {
   Array.from(botonesEditar).forEach((btn) => btn.addEventListener('click', editarPost));
 }
 
-export function showAllPosts() {
-  const postContainer = document.getElementById('postContainer');
-  showFirestorePosts((querySnapshot) => {
-    postContainer.innerHTML = '';
-    querySnapshot.forEach((doc) => {
-      const post = doc.data();
-      const user = JSON.parse(sessionStorage.getItem('user'));
-      const UsuarioLogeado = user.username === post.user;
-      postContainer.innerHTML += `<div class="posts" data-id='${doc.id}'>
-    <div class="headerPost">
-    <div class="usuarioPost">
-    <img class="imgUsuario" src="${post.userphoto}">
-    <h1>${post.user}</h1></div>
-    <h2>${post.categoria}</h2>
-    </div>
-    <p>${post.description}</p>
-    ${UsuarioLogeado ? `<div class="botones">
-    <i data-id ="${doc.id}" class="ph-pencil-simple-bold"></i>
-    <i data-id ="${doc.id}" class="ph-trash-bold"></i>
-    </div>` : ''}</div>`;
-    });
+function eliminarPost(e) {
+  deletePost(e.target.dataset.id);
+}
 
-    setupBotones();
+async function editarPost(e) {
+  const doc = await getPost(e.target.dataset.id);
+  const post = doc.data();
+  const ubicacionModal = document.getElementById('modalEditar');
+  ubicacionModal.style.display = 'inline';
+  ubicacionModal.innerHTML = `<div class="postEdition">
+      <div class="headerPost">
+        <div class="usuarioPost">
+          <img class="imgUsuario" src="${post.userphoto}">
+          <h1>${post.user}</h1>
+        </div>
+        <select class="categoriasEditar">
+          <option value="" selected disabled>${post.categoria}</option>
+          <option value="Restaurantes">Restaurantes</option>
+          <option value="Recetas">Recetas</option>
+          <option value="Streetfood">Streetfood</option>
+        </select>
+     </div>
+      <textarea class="postDescription" cols="40" rows="5">${post.description}</textarea>
+      <div class="botonesEditar">
+        <button class="ingresar guardar">Guardar</button>
+        <button class="ingresar cancelar">Cancelar</button>
+      </div>
+    </div>`;
+
+  cerrarModalEditar(ubicacionModal);
+  updateEditedPost(doc.id, ubicacionModal);
+}
+
+function cerrarModalEditar(modalEditar) {
+  const ubicacionModal = document.getElementById('modalEditar');
+  const botonCerrar = modalEditar.querySelector('.cancelar');
+  botonCerrar.addEventListener('click', () => {
+    ubicacionModal.style.display = 'none';
+  });
+}
+
+function updateEditedPost(postId, modalEditar) {
+  const botonGuardar = modalEditar.querySelector('.guardar');
+  const categoria = modalEditar.querySelector('.categoriasEditar');
+  botonGuardar.addEventListener('click', () => {
+    const postCategoria = categoria.options[categoria.selectedIndex].value;
+    const description = modalEditar.querySelector('.postDescription').value;
+    const postData = {
+      categoria: postCategoria,
+      description,
+    };
+    // eslint-disable-next-line no-param-reassign
+    updatePost(postId, postData).then(() => { modalEditar.style.display = 'none'; });
   });
 }
