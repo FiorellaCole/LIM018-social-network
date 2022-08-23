@@ -315,6 +315,7 @@ i {
 
 .posts p{
     margin: 3%;
+<<<<<<< HEAD
 }
 
 .postEdition {
@@ -350,5 +351,32 @@ i {
 
 .userTitle{
     margin-top: 18%;
+=======
+}
+/* Pantalla inicio */
+
+@media screen and (min-width: 768px) {
+ 
+    .contenedor1 {
+        display:flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        }
+
+    .contenedor2  {   
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 22%;
+        }
+
+    #logoFoodies {
+        width: 70%;
+        }
+    .contenedorNew3{
+        margin-right: 16%;
+        margin-top: 8%;
+    }        
+>>>>>>> 8b728c3c9fa497ca33149aafd50a8ae47780e9db
 }
 
