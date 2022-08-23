@@ -4,8 +4,10 @@ export function firstView(form) {
           <img id="logoFoodies" src="images/logo foodies2.png">
           <p id="slogan">¡Conéctate con miles de amantes de la comida!</p>
           </div>
+          <div class= "contenedorNew3">
           ${form}
           <div id="mensajeModal" style="display:none"></div>
+          <div>
         </section>`;
 
   const divFondo = document.createElement('div');
