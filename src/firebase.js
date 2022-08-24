@@ -23,6 +23,8 @@ import {
   onSnapshot,
   orderBy,
   deleteDoc,
+  arrayUnion,
+  arrayRemove,
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -59,4 +61,6 @@ export {
   onSnapshot,
   orderBy,
   deleteDoc,
+  arrayUnion,
+  arrayRemove,
 };

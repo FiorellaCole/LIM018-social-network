@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { auth, signOut } from '../firebase.js';
+import { auth, signOut, arrayUnion, arrayRemove } from '../firebase.js';
 import { crearPost, showFirestorePosts, deletePost, getPost, updatePost } from '../firestore.js';
 
 export function headerMuro() {
@@ -83,11 +83,11 @@ export function addPosts() {
 
 export function showAllPosts() {
   const postContainer = document.getElementById('postContainer');
+  const user = JSON.parse(sessionStorage.getItem('user'));
   showFirestorePosts((querySnapshot) => {
     postContainer.innerHTML = '';
     querySnapshot.forEach((doc) => {
       const post = doc.data();
-      const user = JSON.parse(sessionStorage.getItem('user'));
       const UsuarioLogeado = user.username === post.user;
       postContainer.innerHTML += `<section class="posts" data-id='${doc.id}'>
       <div class="headerPost">
@@ -101,8 +101,8 @@ export function showAllPosts() {
       <hr id="linea">
         <section class="botones">
           <div class="likes">
-            <i class="ph-heart-bold"></i> 
-            <p id="contador">0</p>
+            <i id ="${doc.id}" class="ph-heart-bold"></i> 
+            <p class="contador">${post.likes.length}</p>
           </div>
           ${UsuarioLogeado ? `<div class="botonesUsuario">
           <i data-id ="${doc.id}" class="ph-pencil-simple-bold"></i>
@@ -112,7 +112,7 @@ export function showAllPosts() {
    </section>`;
     });
     setupBotones();
-    likes();
+    likes(user.id);
   });
 }
 
@@ -179,10 +179,21 @@ function updateEditedPost(postId, modalEditar) {
   });
 }
 
-export function likes() {
-  const btnLike = document.querySelector('.ph-heart-bold');
-  console.log(btnLike);
-  btnLike.addEventListener('click', () => {
-    console.log('Like!');
+function likes(userId) {
+  const btnsLike = document.querySelectorAll('.ph-heart-bold');
+  btnsLike.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const postId = e.target.id;
+      getPost(postId).then((doc) => {
+        const post = doc.data();
+        let newData;
+        if (post.likes.includes(userId)) {
+          newData = { likes: arrayRemove(userId) };
+        } else {
+          newData = { likes: arrayUnion(userId) };
+        }
+        updatePost(postId, newData);
+      });
+    });
   });
 }

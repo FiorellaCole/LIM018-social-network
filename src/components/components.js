@@ -9,7 +9,6 @@ import {
   divCompartir,
   addPosts,
   showAllPosts,
-  likes,
 } from './muro.js';
 
 export const components = {
@@ -25,5 +24,4 @@ export const components = {
   addPost: addPosts,
   showPosts: showAllPosts,
   profile: perfil,
-  likes,
 };
