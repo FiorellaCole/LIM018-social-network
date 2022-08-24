@@ -24,8 +24,8 @@ export const getUserInfo = async (nameCollection, IdUsuario) => {
   return docSnap.data();
 };
 
-export const crearPost = (userphoto, user, description, categoria) => addDoc(collection(db, 'post'), { 
-  userphoto, user, description, categoria,
+export const crearPost = (userphoto, user, description, categoria, likes) => addDoc(collection(db, 'post'), { 
+  userphoto, user, description, categoria, likes,
 });
 
 export const showFirestorePosts = (posts) => onSnapshot(collection(db, 'post'), posts);

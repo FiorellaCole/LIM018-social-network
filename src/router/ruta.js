@@ -23,6 +23,7 @@ export const changeView = (route) => {
     case '#/perfil':
       container.appendChild(components.muro());
       container.appendChild(components.profile());
+      components.likes();
       break;
     default:
       container.innerHTML = 'Página No Encontrada';

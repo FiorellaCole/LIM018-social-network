@@ -47,7 +47,7 @@ export function divCategorias() {
 }
 export function divCompartir() {
   const seccionCompartir = `<section id="compartir">
-  <textarea class="description" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5" required></textarea>
+  <textarea id="description" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5" required></textarea>
   <div class="botonesCompartir">
   <select id="categorias" class="btn Categorias" required>
     <option value="" selected disabled>Categorias</option>
@@ -76,7 +76,7 @@ export function addPosts() {
   postSection.addEventListener('click', () => {
     const description = document.getElementById('description');
     const categoriaSeleccionada = categorias.options[categorias.selectedIndex].value;
-    crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada);
+    crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, []);
     description.value = '';
   });
 }
@@ -112,6 +112,7 @@ export function showAllPosts() {
    </section>`;
     });
     setupBotones();
+    likes();
   });
 }
 
@@ -175,5 +176,13 @@ function updateEditedPost(postId, modalEditar) {
     };
     // eslint-disable-next-line no-param-reassign
     updatePost(postId, postData).then(() => { modalEditar.style.display = 'none'; });
+  });
+}
+
+export function likes() {
+  const btnLike = document.querySelector('.ph-heart-bold');
+  console.log(btnLike);
+  btnLike.addEventListener('click', () => {
+    console.log('Like!');
   });
 }

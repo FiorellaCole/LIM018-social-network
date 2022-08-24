@@ -242,7 +242,7 @@ i {
     flex-direction: column;
 }
 
-.description, .postDescription {
+#description, .postDescription {
     border-radius: 10px;
     border: 1px solid rgba(23, 21, 21, 0.28);
     margin: 2%;
