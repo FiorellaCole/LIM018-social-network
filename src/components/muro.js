@@ -189,8 +189,10 @@ function likes(userId) {
         let newData;
         if (post.likes.includes(userId)) {
           newData = { likes: arrayRemove(userId) };
+          btn.style.color = '#000000';
         } else {
           newData = { likes: arrayUnion(userId) };
+          btn.style.color = '#D40A19';
         }
         updatePost(postId, newData);
       });

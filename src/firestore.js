@@ -8,7 +8,9 @@ import {
   onSnapshot,
   deleteDoc,
   updateDoc,
-  // orderBy,
+  serverTimestamp,
+  orderBy,
+  query,
 } from './firebase.js';
 
 export async function agregarUsuario(
@@ -25,10 +27,15 @@ export const getUserInfo = async (nameCollection, IdUsuario) => {
 };
 
 export const crearPost = (userphoto, user, description, categoria, likes) => addDoc(collection(db, 'post'), { 
-  userphoto, user, description, categoria, likes,
+  userphoto, user, description, categoria, likes, timestamp: serverTimestamp(),
 });
 
-export const showFirestorePosts = (posts) => onSnapshot(collection(db, 'post'), posts);
+export const showFirestorePosts = (posts) => {
+  const coleccion = collection(db, 'post');
+  const q = query(coleccion, orderBy('timestamp', 'desc'));
+  onSnapshot(q, posts);
+};
+
 
 export function deletePost(postId) {
   deleteDoc(doc(db, 'post', postId));

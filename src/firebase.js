@@ -25,6 +25,8 @@ import {
   deleteDoc,
   arrayUnion,
   arrayRemove,
+  serverTimestamp,
+  query,
 } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -63,4 +65,6 @@ export {
   deleteDoc,
   arrayUnion,
   arrayRemove,
+  serverTimestamp,
+  query,
 };
