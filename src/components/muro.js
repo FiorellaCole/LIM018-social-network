@@ -1,6 +1,15 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
-import { auth, signOut, arrayUnion, arrayRemove } from '../firebase.js';
-import { crearPost, showFirestorePosts, deletePost, getPost, updatePost } from '../firestore.js';
+import { auth, signOut } from '../firebase.js';
+import {
+  crearPost,
+  showFirestorePosts,
+  deletePost,
+  getPost,
+  updatePost,
+  arrayUnion,
+  arrayRemove,
+} from '../firestore.js';
 
 export function headerMuro() {
   const user = JSON.parse(sessionStorage.getItem('user'));
@@ -56,8 +65,6 @@ export function divCompartir() {
     <option value="Streetfood">Streetfood</option>
   </select>
     <div class="seccionCompartir">
-      <input type="file" id="añadirImagen">
-      <label for="añadirImagen"><i class="ph-image-bold"></i></label>
       <button class="btn" id="btnCompartir">Compartir</button>
     </div>
   </div>
@@ -113,6 +120,7 @@ export function showAllPosts() {
     });
     setupBotones();
     likes(user.id);
+    // uploadImage();
   });
 }
 
@@ -199,3 +207,11 @@ function likes(userId) {
     });
   });
 }
+
+// function uploadImage() {
+//   const image = document.getElementById('añadirImagen');
+//   // const compartir = document.getElementById('btnCompartir');
+//   image.addEventListener('change', (e) => {
+//     console.log(e.target.files[0].name);
+//   });
+// }

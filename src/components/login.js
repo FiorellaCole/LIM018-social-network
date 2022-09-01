@@ -93,8 +93,7 @@ export function login() {
             sessionStorage.setItem('user', JSON.stringify(user)); // ---> Agregando datos al Storage
             window.location.hash = '#/muro';
           } else {
-            agregarUsuario(
-              googleUser.displayName, googleUser.email, googleUser.uid, '', '', '', googleUser.photoURL, 'images/portadaUsuario.jpg');
+            agregarUsuario(googleUser.displayName, googleUser.email, googleUser.uid, '', '', '', googleUser.photoURL, 'images/portadaUsuario.jpg');
             sessionStorage.setItem('user', JSON.stringify(user)); // ---> Agregando datos al Storage
             window.location.hash = '#/muro';
           }

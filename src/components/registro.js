@@ -46,7 +46,7 @@ export function signUp() {
       .then((userCredential) => {
         const user = userCredential.user;
         sendEmailVerification(user).then(() => {
-          agregarUsuario(usuario, correo, user.uid, '', '', '', 'images/usuarioimg.png', 'images/portadaUsuario.jpg');
+          agregarUsuario(usuario, correo, user.uid, '', '00/00/0000', 'Amante de la comida', 'images/usuarioimg.png', 'images/portadaUsuario.jpg');
         });
         ubicacionModal.style.display = 'inline';
         ubicacionModal.innerHTML = mensajesModales.registroExitoso();

@@ -15,7 +15,7 @@ export const changeView = (route) => {
     case '#/muro':
       container.appendChild(components.muro());
       components.cerrarsesion();
-      container.appendChild(components.categoriasMuro());
+      // container.appendChild(components.categoriasMuro());
       container.appendChild(components.seccionCompartir());
       components.addPost();
       components.showPosts();
@@ -23,6 +23,7 @@ export const changeView = (route) => {
     case '#/perfil':
       container.appendChild(components.muro());
       container.appendChild(components.profile());
+      components.cerrarsesion();
       break;
     default:
       container.innerHTML = 'Página No Encontrada';

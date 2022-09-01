@@ -1,20 +1,29 @@
 import {
-  db,
+  getFirestore,
   doc,
   setDoc,
   addDoc,
   getDoc,
   collection,
-  onSnapshot,
-  deleteDoc,
   updateDoc,
-  serverTimestamp,
+  onSnapshot,
   orderBy,
+  deleteDoc,
+  arrayUnion,
+  arrayRemove,
+  serverTimestamp,
   query,
+// eslint-disable-next-line import/no-unresolved
+} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
+
+import {
+  app,
 } from './firebase.js';
 
-export async function agregarUsuario(
-  username, correo, id, ubicacion, dob, descripcion, fotoPerfil, fotoPortada) {
+const db = getFirestore(app);
+
+// eslint-disable-next-line max-len
+export async function agregarUsuario(username, correo, id, ubicacion, dob, descripcion, fotoPerfil, fotoPortada) {
   await setDoc(doc(db, 'users', id), {
     username, correo, id, ubicacion, dob, descripcion, fotoPerfil, fotoPortada,
   });
@@ -26,7 +35,7 @@ export const getUserInfo = async (nameCollection, IdUsuario) => {
   return docSnap.data();
 };
 
-export const crearPost = (userphoto, user, description, categoria, likes) => addDoc(collection(db, 'post'), { 
+export const crearPost = (userphoto, user, description, categoria, likes) => addDoc(collection(db, 'post'), {
   userphoto, user, description, categoria, likes, timestamp: serverTimestamp(),
 });
 
@@ -35,7 +44,6 @@ export const showFirestorePosts = (posts) => {
   const q = query(coleccion, orderBy('timestamp', 'desc'));
   onSnapshot(q, posts);
 };
-
 
 export function deletePost(postId) {
   deleteDoc(doc(db, 'post', postId));
@@ -47,3 +55,5 @@ export function getPost(postId) {
 export function updatePost(postId, postData) {
   return updateDoc(doc(db, 'post', postId), postData);
 }
+
+export { arrayUnion, arrayRemove };
