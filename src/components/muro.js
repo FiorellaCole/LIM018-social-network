@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
 import { auth, signOut } from '../firebase.js';
@@ -95,19 +96,16 @@ export function addPosts() {
   const user = JSON.parse(sessionStorage.getItem('user'));
   postSection.addEventListener('click', () => {
     const file = image.files[0];
-    console.log(file);
     const description = document.getElementById('description');
     const categoriaSeleccionada = categorias.options[categorias.selectedIndex].value;
-    // eslint-disable-next-line max-len
     if (file === undefined) {
       crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, [], '');
       description.value = '';
     } else {
-      const imageUrl = subirFileStorage(file, 'imagePost').then((url) => console.log(url));
-      console.log(imageUrl);
-      // eslint-disable-next-line max-len
-      crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, [], imageUrl);
-      description.value = '';
+      subirFileStorage(file, 'imagePost').then((url) => {
+        crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, [], url);
+        description.value = '';
+      });
     }
   });
 }
@@ -127,6 +125,9 @@ export function showAllPosts() {
           <h1>${post.user}</h1>
         </div>
         <h2 class="categoria">${post.categoria}</h2>
+      </div>
+      <div class="image">
+        <img class="imgPost" src="${post.imageUrl}">
       </div>
       <p>${post.description}</p>
       <hr id="linea">
