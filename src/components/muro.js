@@ -126,10 +126,12 @@ export function showAllPosts() {
         </div>
         <h2 class="categoria">${post.categoria}</h2>
       </div>
+      <div class="postBody">
       <div class="image">
         <img class="imgPost" src="${post.imageUrl}">
       </div>
       <p>${post.description}</p>
+      </div>
       <hr id="linea">
         <section class="botones">
           <div class="likes">
@@ -232,4 +234,3 @@ function likes(userId) {
     });
   });
 }
-
