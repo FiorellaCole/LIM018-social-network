@@ -80,7 +80,7 @@ Para: Interactuar con otros usuarios.
 
 ## 5. Interfaz
 
-https://fiorellitamaya.github.io/LIM018-data-lovers/src
+https://fiorellitamaya.github.io/LIM018-social-network/src
 
 ## 6. Construido con 🛠️
 * Figma

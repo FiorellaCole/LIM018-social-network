@@ -285,7 +285,7 @@ i {
     cursor: pointer;
 }
 
-/* Publicaciones*/
+/* Publicaciones - Muro*/
 .posts{
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
@@ -321,6 +321,12 @@ i {
     border-radius: 50%;
 }
 
+.postBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .posts p{
     margin: 3%;
     font-size: 18px;
@@ -333,6 +339,18 @@ i {
 .botonesUsuario{
     font-size: 18px;
     margin-right: 8px;
+}
+
+.image{
+    width: 70%;
+    height: 40%;
+    overflow: hidden;
+    align-items: center;
+}
+
+.image img{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 #linea{
@@ -430,6 +448,7 @@ i {
         justify-content: center;
         align-items: center;
         margin-bottom: 22%;
+        margin-left: 10%;
         }
 
     .ingresarDatos { 
@@ -437,11 +456,8 @@ i {
     }
 
     #logoFoodies {
-        width: 70%;
+        width: 100%;
         }
-    .contenedorNew3{
-        margin-right: 16%;
-        margin-top: 8%;
-    }        
+          
 }
 

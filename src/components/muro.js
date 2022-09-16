@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-use-before-define */
 import { auth, signOut } from '../firebase.js';
@@ -10,6 +11,7 @@ import {
   arrayUnion,
   arrayRemove,
 } from '../firestore.js';
+import { subirFileStorage } from '../fstorage.js';
 
 export function headerMuro() {
   const user = JSON.parse(sessionStorage.getItem('user'));
@@ -65,6 +67,9 @@ export function divCompartir() {
     <option value="Streetfood">Streetfood</option>
   </select>
     <div class="seccionCompartir">
+    <input type="file" id="añadirImagen">
+      <p class= "nombreImagen"></p>
+      <label for="añadirImagen"><i class="ph-image-bold"></i></label>
       <button class="btn" id="btnCompartir">Compartir</button>
     </div>
   </div>
@@ -76,15 +81,32 @@ export function divCompartir() {
   return divSeccionCompartir;
 }
 
+// function getImageUrl() {
+//   const image = document.getElementById('añadirImagen');
+//   image.addEventListener('change', (e) => {
+//     const file = e.target.files[0];
+//     subirFileStorage(file, 'imagePost').then((url) => { const imageUrl = url; return imageUrl; });
+//   });
+// }
+
 export function addPosts() {
   const postSection = document.getElementById('btnCompartir');
   const categorias = document.getElementById('categorias');
+  const image = document.getElementById('añadirImagen');
   const user = JSON.parse(sessionStorage.getItem('user'));
   postSection.addEventListener('click', () => {
+    const file = image.files[0];
     const description = document.getElementById('description');
     const categoriaSeleccionada = categorias.options[categorias.selectedIndex].value;
-    crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, []);
-    description.value = '';
+    if (file === undefined) {
+      crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, [], '');
+      description.value = '';
+    } else {
+      subirFileStorage(file, 'imagePost').then((url) => {
+        crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, [], url);
+        description.value = '';
+      });
+    }
   });
 }
 
@@ -104,7 +126,12 @@ export function showAllPosts() {
         </div>
         <h2 class="categoria">${post.categoria}</h2>
       </div>
+      <div class="postBody">
+      <div class="image">
+        <img class="imgPost" src="${post.imageUrl}">
+      </div>
       <p>${post.description}</p>
+      </div>
       <hr id="linea">
         <section class="botones">
           <div class="likes">
@@ -120,7 +147,7 @@ export function showAllPosts() {
     });
     setupBotones();
     likes(user.id);
-    // uploadImage();
+    // getImageUrl();
   });
 }
 
@@ -207,11 +234,3 @@ function likes(userId) {
     });
   });
 }
-
-// function uploadImage() {
-//   const image = document.getElementById('añadirImagen');
-//   // const compartir = document.getElementById('btnCompartir');
-//   image.addEventListener('change', (e) => {
-//     console.log(e.target.files[0].name);
-//   });
-// }
