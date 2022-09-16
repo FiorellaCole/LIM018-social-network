@@ -432,6 +432,10 @@ i {
         margin-bottom: 22%;
         }
 
+    .ingresarDatos { 
+        width:300px;
+    }
+
     #logoFoodies {
         width: 70%;
         }
