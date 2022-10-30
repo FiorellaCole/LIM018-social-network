@@ -38,6 +38,7 @@ export function cerrarSesion() {
         sessionStorage.clear();
         window.location.hash = '#/inicio';
       }).catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error);
       });
   });

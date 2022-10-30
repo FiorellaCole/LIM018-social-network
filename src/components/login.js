@@ -88,6 +88,7 @@ export function login() {
       .then((result) => {
         const googleUser = result.user;
         getUserInfo('users', googleUser.uid).then((user) => {
+          // eslint-disable-next-line no-console
           console.log(user);
           if (user !== undefined) {
             sessionStorage.setItem('user', JSON.stringify(user)); // ---> Agregando datos al Storage
