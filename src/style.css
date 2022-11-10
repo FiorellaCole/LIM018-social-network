@@ -445,6 +445,11 @@ i {
     margin-top: 18%;
 }
 
+.userInfo p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Pantalla inicio */
 
