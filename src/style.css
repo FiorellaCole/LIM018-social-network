@@ -99,6 +99,11 @@ i {
     font-size: 17px;
 }
 
+.ingresar:hover{
+    width: 142px;
+    height: 30px;
+}
+
 .iconosInicio {
     display: flex;
 
