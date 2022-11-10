@@ -44,19 +44,6 @@ export function cerrarSesion() {
   });
 }
 
-export function divCategorias() {
-  const navegadorCategorias = ` <nav class="categorias">
-  <ul class="listaCategorias" >
-    <li id="todo"><img src="images/todo.png">Todo</li>
-    <li id="restaurantes"><img src="images/restaurantes.png">Restaurantes</li>
-    <li id="recetas"><img src="images/recetas.png">Recetas</li>
-    <li id="streetfood"><img src="images/streetfood.png">Streetfood</li>
-  </ul>
-  </nav>`;
-  const divCategoriasMuro = document.createElement('div');
-  divCategoriasMuro.innerHTML = navegadorCategorias;
-  return divCategoriasMuro;
-}
 export function divCompartir() {
   const seccionCompartir = `<section id="compartir">
   <textarea id="description" placeholder="¿Qué te gustaria compartir?" cols="40" rows="5" required></textarea>
@@ -90,11 +77,23 @@ export function divCompartir() {
 //   });
 // }
 
+function showImageName(seccionCompartir) {
+  const image = document.getElementById('añadirImagen');
+  image.addEventListener('change', (e) => {
+    const file = e.target.files[0].name;
+    const imageName = seccionCompartir.querySelector('.nombreImagen');
+    imageName.innerHTML = file;
+  });
+}
+
 export function addPosts() {
+  const seccionCompartir = document.querySelector('.seccionCompartir');
   const postSection = document.getElementById('btnCompartir');
   const categorias = document.getElementById('categorias');
   const image = document.getElementById('añadirImagen');
   const user = JSON.parse(sessionStorage.getItem('user'));
+  const imageName = seccionCompartir.querySelector('.nombreImagen');
+  showImageName(seccionCompartir);
   postSection.addEventListener('click', () => {
     const file = image.files[0];
     const description = document.getElementById('description');
@@ -106,6 +105,7 @@ export function addPosts() {
       subirFileStorage(file, 'imagePost').then((url) => {
         crearPost(user.fotoPerfil, user.username, description.value, categoriaSeleccionada, [], url);
         description.value = '';
+        imageName.innerHTML = '';
       });
     }
   });
@@ -225,13 +225,43 @@ function likes(userId) {
         let newData;
         if (post.likes.includes(userId)) {
           newData = { likes: arrayRemove(userId) };
-          btn.style.color = '#000000';
+          btn.classList.toggle('ph-heart-fill');
+          btn.classList.toggle('ph-heart-bold');
         } else {
           newData = { likes: arrayUnion(userId) };
-          btn.style.color = '#D40A19';
+          btn.classList.toggle('ph-heart-bold');
+          btn.classList.toggle('ph-heart-fill');
         }
         updatePost(postId, newData);
       });
     });
   });
 }
+
+export function divCategorias() {
+  const navegadorCategorias = ` <nav class="categorias">
+  <ul class="listaCategorias" >
+    <li id="todo"><img src="images/todo.png">Todo</li>
+    <li id="restaurantes"><img src="images/restaurantes.png">Restaurantes</li>
+    <li id="recetas"><img src="images/recetas.png">Recetas</li>
+    <li id="streetfood"><img src="images/streetfood.png">Streetfood</li>
+  </ul>
+  </nav>`;
+  const divCategoriasMuro = document.createElement('div');
+  divCategoriasMuro.innerHTML = navegadorCategorias;
+  return divCategoriasMuro;
+}
+
+// export function showPostsByCategories() {
+//   const allCategories = document.getElementById('todo');
+//   const restaurantes = document.getElementById('restaurantes');
+//   const recetas = document.getElementById('recetas');
+//   const streetfood = document.getElementById('streetfood');
+//   allCategories.addEventListener('click', () => {
+//     showAllPosts();
+//   });
+//   restaurantes.addEventListener('click', () => {
+//     showAllPosts()
+//   })
+
+// }

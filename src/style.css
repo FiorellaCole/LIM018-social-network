@@ -99,6 +99,11 @@ i {
     font-size: 17px;
 }
 
+.ingresar:hover{
+    width: 142px;
+    height: 30px;
+}
+
 .iconosInicio {
     display: flex;
 
@@ -183,16 +188,16 @@ i {
 }
 
 .derechaHeader a {
-    width: 30px;   
     background-color: #FFFFFF;
     border-radius: 50%;
-    height: 30px;
     margin-left: 5px;
 }
 
 .iconoUsuario{
     width: 100%;
     border-radius: 100%;
+    margin-bottom: -10%;
+    
 }
 
 .derechaHeader i {
@@ -248,6 +253,7 @@ i {
     margin: 2%;
     padding: 1%;
     font-size: 18px;
+    width: 97%;
 }
 
 .botonesCompartir {
@@ -275,6 +281,12 @@ i {
 .seccionCompartir{
     display: flex;
     justify-content: space-between;
+}
+
+.seccionCompartir p{
+    color: #847c7c;
+    margin: 2% 1% 0% 0%;
+    font-size: 14px;
 }
 
 .botonesCompartir i{
@@ -366,6 +378,7 @@ i {
 
 .ph-heart-bold{
     margin: 5px 0px 5px 8px;
+    color: #847c7c;
 }
 
 #contador{
@@ -375,23 +388,25 @@ i {
 }
 
 #modalEditar {
-    position: absolute;
+    position: fixed;
     z-index: 100;
     width: 100%;
     height: 100vh;
     background: rgba(0, 0, 0, 0.60);
     justify-content: center;
     align-items: center;
+    top: 0;
+    left: 0;
 }
 
 .postEdition {
-    position: fixed;
+    position: relative;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.35);
     border-radius: 10px;
-    max-width: 90%;
+    max-width: 92%;
     padding: 1%;
-    margin: 10%;
+    margin: 200px 0% 0% 5%;
 }
 
 .categoriasEditar{
@@ -432,6 +447,11 @@ i {
     margin-top: 18%;
 }
 
+.userInfo p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Pantalla inicio */
 
