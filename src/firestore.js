@@ -45,6 +45,12 @@ export const showFirestorePosts = (posts) => {
   onSnapshot(q, posts);
 };
 
+// export const showPostsByCategories = (posts) => {
+//   const coleccion = collection(db, 'post');
+//   const q = query(coleccion, orderBy('timestamp', 'desc'));
+//   onSnapshot(q, posts);
+// };
+
 export function deletePost(postId) {
   deleteDoc(doc(db, 'post', postId));
 }

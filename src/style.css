@@ -277,6 +277,12 @@ i {
     justify-content: space-between;
 }
 
+.seccionCompartir p{
+    color: #847c7c;
+    margin: 2% 1% 0% 0%;
+    font-size: 14px;
+}
+
 .botonesCompartir i{
     color: #D40A19;
     font-size: 30px;
@@ -366,6 +372,7 @@ i {
 
 .ph-heart-bold{
     margin: 5px 0px 5px 8px;
+    color: #847c7c;
 }
 
 #contador{
