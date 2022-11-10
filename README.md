@@ -125,7 +125,7 @@ Objetivos estudiados:
 - [X] Uso de linter (ESLINT)
 - [X] Uso de identificadores descriptivos (Nomenclatura y Semántica)
 - [ ] Diferenciar entre expresiones (expressions) y sentencias (statements)
-- [ ] Callbacks
+- [X] Callbacks
 - [ ] Promesas
 
 ### Control de Versiones (Git y GitHub)
